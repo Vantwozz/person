@@ -1,5 +1,5 @@
 #include "Person.h"
-vector<person> person::v = vector<person>();
+vector<person> person::v = vector<person>();//вектор для хранения людей и создания новых ID
 void person::print() const
 {
 	cout << "Name: " << name << endl;
@@ -20,9 +20,9 @@ void person::print() const
 }
 person person::GiveBirth(const string& name, Gender gender, person father)
 {
-	string bname;
-	if (this->gender == Gender::female) {
-		if (!name.empty()) {
+	string bname;//имя ребенка
+	if (this->gender == Gender::female) {//проверка на Female гендер, т.к. только Female гендер может родить
+		if (!name.empty()) {//проверка на пустоту имени ребенка
 			bname = name;
 		}
 		else {
@@ -40,7 +40,7 @@ person::person() {
 person::person(const string& name, Gender gender, person mother, person father)
 {
 	this->name = name;
-	if (name.empty()) {
+	if (name.empty()) {//проверка на пустоту имени
 		throw logic_error("person must have a name");
 	}
 	this->gender = gender;
@@ -48,13 +48,13 @@ person::person(const string& name, Gender gender, person mother, person father)
 	fatherID = father.ID;
 	ID = v.size();
 	v.push_back(*this);
-	if (motherID == -1 && ID > 1 && name != "Adam" && name != "Eva") {
+	if (motherID == -1 && ID > 1 && name != "Adam" && name != "Eva") {//проверка на наличие матери, только у ID = 0 и 1 (Адама и Евы) может не быть матери
 		throw logic_error("Person must have mother if this person isn't first (Adam) or second (Eva) person on earth");
 	}
-	if (motherID != -1 && v[motherID].gender != Gender::female) {
+	if (motherID != -1 && v[motherID].gender != Gender::female) {//проверка на гендер метери
 		throw logic_error("Mother must be female");
 	}
-	if (fatherID != -1 && v[fatherID].gender != Gender::male) {
+	if (fatherID != -1 && v[fatherID].gender != Gender::male) {//проверка на гендер отца
 		throw logic_error("Father must be male");
 	}
 	
@@ -65,13 +65,18 @@ int person::getID() const
 	return ID;
 }
 
-void person::getMotherInfo() const
+void person::getMotherInfo() const//полная информация о матери
 {
-	cout << "Information about " << getName() << "'s mother :" << endl;
-	v[motherID].print();
+	if (motherID != -1) {
+		cout << "Information about " << getName() << "'s mother :" << endl;
+		v[motherID].print();
+	}
+	else {
+		cout << "person has no mother" << endl;
+	}
 }
 
-void person::getFatherInfo() const
+void person::getFatherInfo() const //полная информация об отце
 {
 	if (fatherID != -1) {
 		cout << "Information about " << getName() << "'s father :" << endl;

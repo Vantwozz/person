@@ -4,12 +4,12 @@ using namespace std;
 int main()
 {
 	try {
-		person Adam("Adam", Gender::male);
-		person Eva("Eva", Gender::female);
+		person Adam("Adam", Gender::male); //первый человек
+		person Eva("Eva", Gender::female); //второй человек
 		person Kein = Eva.GiveBirth("Kein", Gender::male, Adam);
 		person Avel = Eva.GiveBirth("Avel", Gender::male, Adam);
 		person Azura = Eva.GiveBirth("Azura", Gender::female, Adam);
-		person Enos = Azura.GiveBirth("Enos", Gender::male);
+		person Enos = Azura.GiveBirth("Enos", Gender::male); //ребенок без отца
 		Adam.print();
 		cout << endl;
 		Eva.print();
@@ -22,7 +22,7 @@ int main()
 		cout << endl;
 		Enos.print();
 		cout << endl;
-		person a = Enos.GiveBirth("Son of two fathers", Gender::male);
+		person a = Enos.GiveBirth("Son of two fathers", Gender::male); //проверка на беременность Male гендера
 	}
 	catch (exception& e) {
 		cerr << e.what() << endl;
